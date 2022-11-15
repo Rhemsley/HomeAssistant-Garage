@@ -1,31 +1,4 @@
-esphome:
-  name: distance-sensor
 
-esp8266:
-  board: d1_mini
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: "qgr1EeKrI/tuF0B4cHZe/sRUWbq6g3eFryb8XaiQAac="
-
-ota:
-  password: "bf68dda51d68790d14caa8445cc9a85d"
-
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "Distance-Sensor Fallback Hotspot"
-    password: "46qZ0SXnlnIf"
-
-captive_portal:
-    
 sensor:
   - platform: ultrasonic
     trigger_pin: D2
