@@ -1,0 +1,23 @@
+alias: Garage Closed
+description: ""
+trigger:
+  - type: not_opened
+    platform: device
+    device_id: d7376f5cfa13ff23b36bd041c26b2e43
+    entity_id: binary_sensor.garage
+    domain: binary_sensor
+condition: []
+action:
+  - type: turn_off
+    device_id: d8768d804421463dd081023f60d097da
+    entity_id: light.red_light
+    domain: light
+  - type: turn_off
+    device_id: d8768d804421463dd081023f60d097da
+    entity_id: light.yellow_light
+    domain: light
+  - type: turn_off
+    device_id: d8768d804421463dd081023f60d097da
+    entity_id: light.green_light
+    domain: light
+mode: single

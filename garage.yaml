@@ -1,0 +1,37 @@
+esphome:
+  name: garage
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "XG1+oOIf9BAB0Mb8cruo7ZVni6HHLvGwvvkb9NfifO0="
+
+ota:
+  password: "ba3a0a8f24bb87de65fb3b337fcc8012"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Garage Fallback Hotspot"
+    password: "6LdfHhxezN9m"
+
+captive_portal:
+    
+binary_sensor:
+  - platform: gpio
+    pin: 
+      number: D5
+      mode:
+        input: true
+        pullup: true
+    name: "Garage"
+    device_class: garage_door

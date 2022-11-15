@@ -1,0 +1,131 @@
+alias: Garage Open
+description: ""
+trigger:
+  - type: opened
+    platform: device
+    device_id: d7376f5cfa13ff23b36bd041c26b2e43
+    entity_id: binary_sensor.garage
+    domain: binary_sensor
+condition: []
+action:
+  - repeat:
+      while:
+        - type: is_open
+          condition: device
+          device_id: d7376f5cfa13ff23b36bd041c26b2e43
+          entity_id: binary_sensor.garage
+          domain: binary_sensor
+      sequence:
+        - if:
+            - type: is_value
+              condition: device
+              device_id: 9e72f8a9316496d66d7976dde7ff392a
+              entity_id: sensor.ultrasonic_sensor
+              domain: sensor
+              above: 0
+              below: 0.1
+          then:
+            - type: toggle
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.red_light
+              domain: light
+            - type: turn_off
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.yellow_light
+              domain: light
+            - type: turn_off
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.green_light
+              domain: light
+          alias: Red Blink Distance
+        - if:
+            - type: is_value
+              condition: device
+              device_id: 9e72f8a9316496d66d7976dde7ff392a
+              entity_id: sensor.ultrasonic_sensor
+              domain: sensor
+              above: 0.1
+              below: 0.2
+          then:
+            - type: turn_on
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.red_light
+              domain: light
+            - type: turn_off
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.yellow_light
+              domain: light
+            - type: turn_off
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.green_light
+              domain: light
+          alias: Red Distance
+        - if:
+            - type: is_value
+              condition: device
+              device_id: 9e72f8a9316496d66d7976dde7ff392a
+              entity_id: sensor.ultrasonic_sensor
+              domain: sensor
+              above: 0.2
+              below: 0.3
+          then:
+            - type: turn_off
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.red_light
+              domain: light
+            - type: turn_on
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.yellow_light
+              domain: light
+            - type: turn_off
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.green_light
+              domain: light
+          alias: Yellow Distance
+        - if:
+            - type: is_value
+              condition: device
+              device_id: 9e72f8a9316496d66d7976dde7ff392a
+              entity_id: sensor.ultrasonic_sensor
+              domain: sensor
+              above: 0.3
+              below: 10
+          then:
+            - type: turn_off
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.red_light
+              domain: light
+            - type: turn_off
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.yellow_light
+              domain: light
+            - type: turn_on
+              device_id: d8768d804421463dd081023f60d097da
+              entity_id: light.green_light
+              domain: light
+          alias: Green Distance
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 100
+        - if:
+            - type: is_value
+              condition: device
+              device_id: 9e72f8a9316496d66d7976dde7ff392a
+              entity_id: sensor.ultrasonic_sensor
+              domain: sensor
+              above: 0
+              below: 0.3
+          then:
+            - service: input_boolean.turn_on
+              data: {}
+              target:
+                entity_id: input_boolean.car_in_garage
+          alias: Car in Garage Status
+          else:
+            - service: input_boolean.turn_off
+              data: {}
+              target:
+                entity_id: input_boolean.car_in_garage
+mode: single

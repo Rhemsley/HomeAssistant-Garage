@@ -1,0 +1,10 @@
+type: entities
+entities:
+  - entity: binary_sensor.garage
+  - entity: input_boolean.car_in_garage
+  - entity: sensor.ultrasonic_sensor
+    name: Distance to Car
+  - entity: light.red_light
+  - entity: light.yellow_light
+  - entity: light.green_light
+title: Garage Sensors
